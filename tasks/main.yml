@@ -14,6 +14,15 @@
     depth: 1
     force: yes
 
+- Add exec permissons for scripts
+  file:
+    path: "{{ item }}"
+    mode: 0755
+  with_items:
+    - "{{ zabbix_mongodb_path }}/mongodb-2.2/mikoomi-mongodb-plugin.sh"
+    - "{{ zabbix_mongodb_path }}/mongodb-2.4/mikoomi-mongodb-plugin-24.sh"
+    - "{{ zabbix_mongodb_path }}/mongodb-3.2/mikoomi-mongodb-plugin-32.sh"
+
 - name: Link scripts
   file: src={{ item.src }} dest={{ item.dest }} state=link force=yes
   with_items:
