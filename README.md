@@ -19,7 +19,7 @@ zabbix_mongodb_path - path for git clone. Default: /opt/zabbix-mongodb <br />
 zabbix_mongodb_git_ref - commit to clone. Default: HEAD <br />
 zabbix_mongodb_databases - list of zabbix server. It's an array, every element there is a dictionary. Element variables: <br />
   title - comment in crontab. Default value is based on hostname <br />
-  state = state of cron task. Default: present <br />
+  state - state of cron task. Default: present <br />
   user - user to run cron job. Default: root <br />
   interval - interval to check mongodb in minutes. Has cron-like syntax. Default: * <br />
   mongodb_version - version of mongodb server. Available values: 2.2, 2.4, 3.2 . Default : 3.2 <br />
