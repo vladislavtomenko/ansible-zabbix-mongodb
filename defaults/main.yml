@@ -1,0 +1,10 @@
+---
+zabbix_mongodb_centos_packages:
+  - php-devel
+  - php-pecl-mongo
+
+zabbix_mongodb_git_repo: "https://github.com/nightw/mikoomi-zabbix-mongodb-monitoring.git"
+zabbix_mongodb_path: "/opt/zabbix-mongodb"
+zabbix_mongodb_git_ref: "HEAD"
+
+zabbix_mongodb_databases: []

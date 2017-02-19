@@ -1,0 +1,29 @@
+---
+- name: Install packages (CentOS)
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items: "{{ zabbix_mongodb_centos_packages }}"
+  when: ansible_os_family == 'RedHat'
+
+- name: Clone zabbix mongodb monitoring repo
+  git:
+    repo: "{{ zabbix_mongodb_git_repo }}"
+    dest: "{{ zabbix_mongodb_path }}"
+    version: "{{ zabbix_mongodb_git_ref }}"
+    depth: 1
+    force: yes
+
+- name: Link scripts
+  file: src={{ item.src }} dest={{ item.dest }} state=link force=yes
+  with_items:
+    - { src: "{{ zabbix_mongodb_path }}/mongodb-2.4/mikoomi-mongodb-plugin-24.sh", dest: "{{ zabbix_mongodb_path }}/mongodb-2.4/mikoomi-mongodb-plugin.sh" }
+    - { src: "{{ zabbix_mongodb_path }}/mongodb-3.2/mikoomi-mongodb-plugin-32.sh", dest: "{{ zabbix_mongodb_path }}/mongodb-3.2/mikoomi-mongodb-plugin.sh" }
+
+- cron:
+    name: "{{ item.title | default(item.mongodb_address)}}"
+    state: "{{ item.state | default('present') }}"
+    user: "{{ item.user | default('root') }}"
+    minute: "{{ item.interval | default('*') }}"
+    job: "{{ zabbix_mongodb_path }}/mongodb-{{ item.mongodb_version | default('3.2') }}/mikoomi-mongodb-plugin.sh -H {{ item.zabbix_server | default('localhost') }} -P {{ item.zabbix_port | default('10051') }} -z {{ item.hostname | default(ansible_nodename) }} -h {{ item.mongodb_address }} -p {{ item.mongodb_port | default('27017') }} -u {{ item.mongodb_user }} -x {{ item.mongodb_password }}"
+  with_items: "{{ zabbix_mongodb_databases }}"
