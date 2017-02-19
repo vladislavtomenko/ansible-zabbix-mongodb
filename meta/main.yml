@@ -1,6 +1,6 @@
 galaxy_info:
   author: Vladislav Tomenko
-  description: Ansible role to install scripts for mongodb monitoring in zabbix. Original project: https://github.com/nightw/mikoomi-zabbix-mongodb-monitoring
+  description: Ansible role to install scripts for mongodb monitoring in zabbix.
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
