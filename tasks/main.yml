@@ -14,7 +14,7 @@
     depth: 1
     force: yes
 
-- Add exec permissons for scripts
+- name: Add exec permissons for scripts
   file:
     path: "{{ item }}"
     mode: 0755
